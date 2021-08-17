@@ -7,7 +7,7 @@ You will need an Riot Api key for League of Legends to use this Sensor. You can 
 Hit register Product and Apply for a `personal API Key`
 once your Application is accepted you should get your API Key.
 
-Now Copy the folder `custom_components` from this repo into your `~/.homeassistant/` folder and restart home-assistant.
+Install this Repo as a Custom Repository in Hacs or copy the folder `custom_components` from this repo into your `~/.homeassistant/` folder and restart home-assistant.
 
 # Configuration Example
 To enable the Sensor add the following Lines to your configuration.yaml file:
