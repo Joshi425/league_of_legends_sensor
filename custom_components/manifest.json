@@ -1,0 +1,9 @@
+{
+    "domain": "league_of_legends",
+    "name": "League of Legends Player Sensor",
+    "documentation": "https://github.com/home-assistant/example-custom-config/tree/master/custom_components/example_sensor/",
+    "codeowners": ["@Joshi425"],
+    "requirements": ["cassiopeia==4.0.18"],
+    "iot_class": "cloud_polling",
+    "version": "1.0.0"
+}
