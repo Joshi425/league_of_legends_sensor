@@ -1,6 +1,8 @@
 # league_of_legends_sensor
 a custom component for displaying current League of legends ingame status in Home Assistant
 
+![example.png](/images/preview.png)
+
 # How to use
 
 You will need an Riot Api key for League of Legends to use this Sensor. You can Apply for one at https://developer.riotgames.com/
