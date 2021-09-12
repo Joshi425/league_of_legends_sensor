@@ -21,6 +21,9 @@ CONF_PLAYERS = "players"
 PLAYING = "Playing"
 NOT_PLAYING = "not playing"
 
+GAME_WON = "Victory"
+GAME_LOST = "Defeat"
+
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_API_KEY): cv.string,
@@ -82,6 +85,7 @@ class PlayerSensor(SensorEntity):
         self._summoner = summoner
         self._solo_queue_rank = None
         self._flex_queue_rank = None
+        self._last_game = None
         self._name = None
         self._region = None
         self._level = None
@@ -132,6 +136,8 @@ class PlayerSensor(SensorEntity):
             attr["solo_queue_rank"] = self._solo_queue_rank
         if self._flex_queue_rank is not None:
             attr["flex_queue_rank"] = self._flex_queue_rank
+        if self._last_game is not None:
+            attr["last_game"] = self._last_game
         return attr
 
     def update(self):
@@ -144,6 +150,7 @@ class PlayerSensor(SensorEntity):
         self._state = NOT_PLAYING
         self._matchtype = None
         self._teammates = []
+        self._last_game = None
 
         try:
             self._solo_queue_rank = (
@@ -162,11 +169,20 @@ class PlayerSensor(SensorEntity):
         except KeyError:
             pass
 
+        for team in self._summoner.match_history[0].teams:
+            if team.participants.contains(self._summoner):
+                if team.win:
+                    self._last_game = GAME_WON
+                else:
+                    self._last_game = GAME_LOST
+
         match = None
         try:
             match = self._summoner.current_match
         except common.NotFoundError:
             pass
+
+        print(self._summoner.match_history)
         if match is not None and match.exists:
             self._state = PLAYING
             self._matchtype = match.queue.name
