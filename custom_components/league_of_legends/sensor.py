@@ -158,7 +158,7 @@ class PlayerSensor(SensorEntity):
                 .replace("<", "")
                 .replace(">", "")
             )
-        except KeyError:
+        except Exception as e:
             pass
         try:
             self._flex_queue_rank = (
@@ -166,7 +166,7 @@ class PlayerSensor(SensorEntity):
                 .replace("<", "")
                 .replace(">", "")
             )
-        except KeyError:
+        except:
             pass
 
         for team in self._summoner.match_history[0].teams:
